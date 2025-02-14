@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1027463177228",
+    "project_id": "watchstrapecommerse",
+    "storage_bucket": "watchstrapecommerse.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027463177228:android:c900ff80eca680b6d03a29",
+        "android_client_info": {
+          "package_name": "com.mywatchstrap.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh7EZcPTII2nTC9MLMaEI842xWOoLZ4PM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
