@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, StatusBar, SafeAreaView } from "react-native";
+import { StyleSheet, StatusBar, SafeAreaView, Platform } from "react-native";
 import { useTheme } from "react-native-paper";
 import { ThemedView } from "@/components/ThemedView";
 import Header from "../../components/Header";
@@ -9,8 +9,8 @@ export default function HomeScreen() {
   const theme = useTheme();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ThemedView style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <ThemedView>
         <StatusBar 
           backgroundColor={theme.colors.primary}
           barStyle="light-content"
@@ -23,11 +23,8 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight || 0,
+    backgroundColor: '#FFFFFF',
   },
-});
+}); 

@@ -21,7 +21,15 @@ export const lightTheme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    ...customColors,
+    primary: '#8C7851', // Antique Gold
+    accent: '#C0C0C0', // Silver
+    background: '#1C1C1C', // Jet Black
+    surface: '#1C1C1C', // Jet Black
+    text: '#FFFFFF', // White
+    onSurface: '#FFFFFF', // White
+    disabled: '#9E9E9E', // Soft Silver
+    placeholder: '#9E9E9E', // Soft Silver
+    notification: '#C0C0C0', // Silver
   },
 };
 
@@ -29,12 +37,14 @@ export const darkTheme = {
   ...MD3DarkTheme,
   colors: {
     ...MD3DarkTheme.colors,
-    primary: '#3498DB',
-    background: '#1A1A1A',
-    surface: '#2C2C2C',
-    text: '#FFFFFF',
-    onSurface: '#FFFFFF',
-    disabled: '#666666',
-    placeholder: '#888888',
+    primary: '#8C7851', // Antique Gold
+    accent: '#C0C0C0', // Silver
+    background: '#1C1C1C', // Jet Black
+    surface: '#1C1C1C', // Jet Black
+    text: '#FFFFFF', // White
+    onSurface: '#FFFFFF', // White
+    disabled: '#9E9E9E', // Soft Silver
+    placeholder: '#9E9E9E', // Soft Silver
+    notification: '#C0C0C0', // Silver
   },
-}; 
+};

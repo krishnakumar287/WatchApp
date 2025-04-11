@@ -1,7 +1,6 @@
 import { Tabs } from 'expo-router';
 import { useTheme } from 'react-native-paper';
 import { Platform } from 'react-native';
-import { CustomTabBar } from '../../components/CustomTabBar';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
@@ -9,28 +8,32 @@ export default function TabLayout() {
 
   return (
     <Tabs
-      tabBar={props => <CustomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
-          borderTopWidth: 1,
-          borderTopColor: '#EEEEEE',
+          backgroundColor: '#1C1C1C', // Jet Black
+          borderTopWidth: 0.5,
+          borderTopColor: '#9E9E9E', // Soft Silver
           height: Platform.OS === 'ios' ? 85 : 65,
           paddingBottom: Platform.OS === 'ios' ? 25 : 10,
           paddingTop: 10,
-          elevation: 8,
-          shadowColor: '#000000',
-          shadowOffset: {
-            width: 0,
-            height: -2,
-          },
-          shadowOpacity: 0.1,
-          shadowRadius: 3,
+          elevation: 0,
+          shadowOpacity: 0,
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
         },
-      }}>
+        tabBarActiveTintColor: '#8C7851', // Antique Gold
+        tabBarInactiveTintColor: '#9E9E9E', // Soft Silver
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '500',
+        },
+      }}
+    >
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => (
@@ -62,15 +65,6 @@ export default function TabLayout() {
           title: 'Contact',
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="contact-support" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="settings" size={24} color={color} />
           ),
         }}
       />

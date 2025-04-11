@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../constants/firebase";
 import { TextInput, Button, Text, useTheme, Surface } from "react-native-paper";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function SignupScreen() {
   const theme = useTheme();
@@ -22,7 +23,7 @@ export default function SignupScreen() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.replace("/home");
+      router.replace("/(tabs)");
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         setError("Account already exists. Please log in.");
@@ -33,106 +34,117 @@ export default function SignupScreen() {
   };
 
   return (
-    <ScrollView 
-      contentContainerStyle={[
-        styles.scrollView, 
-        { backgroundColor: theme.colors.background }
-      ]}
-    >
-      <Surface style={styles.surface}>
-        <KeyboardAvoidingView 
-          behavior={Platform.OS === "ios" ? "padding" : "height"} 
-          style={styles.container}
-        >
-          <Text variant="headlineMedium" style={styles.title}>
-            Sign Up
-          </Text>
-
-          <TextInput
-            label="Email"
-            mode="outlined"
-            value={email}
-            onChangeText={setEmail}
-            style={styles.input}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-
-          <TextInput
-            label="Password"
-            mode="outlined"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            style={styles.input}
-          />
-
-          <TextInput
-            label="Confirm Password"
-            mode="outlined"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            style={styles.input}
-          />
-
-          {error ? (
-            <Text style={[styles.message, { color: theme.colors.error }]}>
-              {error}
+    <ThemedView style={[styles.container, { backgroundColor: '#F1F8E9' }]}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardView}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <Surface style={[styles.card, { backgroundColor: '#FFFFFF' }]}>
+            <Text variant="headlineMedium" style={[styles.title, { color: '#4CAF50' }]}>
+              Create Account
             </Text>
-          ) : null}
+            
+            {error ? (
+              <Text style={styles.error}>{error}</Text>
+            ) : null}
 
-          <Button 
-            mode="contained" 
-            onPress={handleSignup} 
-            style={styles.button}
-          >
-            Sign Up
-          </Button>
+            <TextInput
+              label="Email"
+              value={email}
+              onChangeText={setEmail}
+              mode="outlined"
+              style={styles.input}
+              activeOutlineColor="#4CAF50"
+              outlineColor="#9CCC65"
+              textColor="#2E2E2E"
+              theme={{ colors: { text: '#2E2E2E', placeholder: '#757575' }}}
+            />
 
-          <Button 
-            mode="text" 
-            onPress={() => router.push("/login")} 
-            style={styles.button}
-          >
-            Already have an account? Log In
-          </Button>
-        </KeyboardAvoidingView>
-      </Surface>
-    </ScrollView>
+            <TextInput
+              label="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              mode="outlined"
+              style={styles.input}
+              activeOutlineColor="#4CAF50"
+              outlineColor="#9CCC65"
+              textColor="#2E2E2E"
+              theme={{ colors: { text: '#2E2E2E', placeholder: '#757575' }}}
+            />
+
+            <TextInput
+              label="Confirm Password"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+              mode="outlined"
+              style={styles.input}
+              activeOutlineColor="#4CAF50"
+              outlineColor="#9CCC65"
+              textColor="#2E2E2E"
+              theme={{ colors: { text: '#2E2E2E', placeholder: '#757575' }}}
+            />
+
+            <Button
+              mode="contained"
+              onPress={handleSignup}
+              style={styles.button}
+              buttonColor="#4CAF50"
+            >
+              Sign Up
+            </Button>
+
+            <Button
+              onPress={() => router.push("/login")}
+              textColor="#4CAF50"
+              style={styles.linkButton}
+            >
+              Already have an account? Login
+            </Button>
+          </Surface>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
-  },
-  surface: {
-    flex: 1,
-    margin: 16,
-    borderRadius: 8,
-    elevation: 1,
-  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+  },
+  keyboardView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 16,
+  },
+  card: {
+    padding: 16,
+    borderRadius: 8,
+    elevation: 4,
   },
   title: {
-    fontWeight: "bold",
+    textAlign: 'center',
     marginBottom: 24,
   },
   input: {
-    width: "100%",
     marginBottom: 16,
-  },
-  message: {
-    marginBottom: 16,
-    textAlign: 'center',
+    backgroundColor: '#FFFFFF',
   },
   button: {
-    width: "100%",
     marginTop: 8,
+    marginBottom: 16,
+  },
+  linkButton: {
+    marginTop: 8,
+  },
+  error: {
+    color: '#B00020',
+    textAlign: 'center',
+    marginBottom: 16,
   },
 });

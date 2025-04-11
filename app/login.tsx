@@ -15,7 +15,7 @@ export default function LoginScreen() {
 
   useEffect(() => {
     if (user) {
-      router.replace("/home");
+      router.replace("/(tabs)");
     }
   }, [user]);
 
@@ -23,7 +23,7 @@ export default function LoginScreen() {
     setError("");
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.replace("/home");
+      router.replace("/(tabs)");
     } catch (error: any) {
       if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found") {
         setError("Invalid email or password.");
@@ -34,66 +34,68 @@ export default function LoginScreen() {
   };
 
   return (
-    <ScrollView 
-      contentContainerStyle={[
-        styles.scrollView, 
-        { backgroundColor: theme.colors.background }
-      ]}
-    >
-      <Surface style={styles.surface}>
-        <KeyboardAvoidingView 
-          behavior={Platform.OS === "ios" ? "padding" : "height"} 
-          style={styles.container}
+    <ScrollView style={[styles.container, { backgroundColor: '#F1F8E9' }]}>
+      <Surface style={[styles.surface, { backgroundColor: '#FFFFFF' }]}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.form}
         >
-          <Text variant="headlineMedium" style={styles.title}>
-            Login
+          <Text variant="headlineLarge" style={[styles.title, { color: '#4CAF50' }]}>
+            Welcome Back
           </Text>
-
+          
           <TextInput
             label="Email"
-            mode="outlined"
             value={email}
             onChangeText={setEmail}
+            mode="outlined"
             style={styles.input}
-            keyboardType="email-address"
-            autoCapitalize="none"
+            outlineColor="#9CCC65"
+            activeOutlineColor="#4CAF50"
+            textColor="#2E2E2E"
+            theme={{ colors: { text: '#2E2E2E', placeholder: '#757575' }}}
           />
-
+          
           <TextInput
             label="Password"
-            mode="outlined"
-            secureTextEntry
             value={password}
             onChangeText={setPassword}
+            secureTextEntry
+            mode="outlined"
             style={styles.input}
+            outlineColor="#9CCC65"
+            activeOutlineColor="#4CAF50"
+            textColor="#2E2E2E"
+            theme={{ colors: { text: '#2E2E2E', placeholder: '#757575' }}}
           />
 
-          {error ? (
-            <Text style={[styles.message, { color: theme.colors.error }]}>
-              {error}
-            </Text>
-          ) : null}
+          {error && (
+            <Text style={styles.error}>{error}</Text>
+          )}
 
           <Button 
             mode="contained" 
-            onPress={handleLogin} 
+            onPress={handleLogin}
             style={styles.button}
+            buttonColor="#4CAF50"
           >
             Login
           </Button>
 
           <Button 
-            mode="text" 
-            onPress={() => router.push("/signup")} 
-            style={styles.button}
+            mode="outlined" 
+            onPress={() => router.push("/signup")}
+            style={[styles.button, { borderColor: '#9CCC65' }]}
+            textColor="#4CAF50"
           >
-            Don't have an account? Sign Up
+            Create Account
           </Button>
 
           <Button 
             mode="text" 
-            onPress={() => router.push("/forgot-password")} 
+            onPress={() => router.push("/forgot-password")}
             style={styles.button}
+            textColor="#4CAF50"
           >
             Forgot Password?
           </Button>
@@ -104,35 +106,34 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
-  },
-  surface: {
-    flex: 1,
-    margin: 16,
-    borderRadius: 8,
-    elevation: 1,
-  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+  },
+  surface: {
+    margin: 16,
+    padding: 16,
+    borderRadius: 12,
+    elevation: 4,
+  },
+  form: {
+    padding: 16,
   },
   title: {
-    fontWeight: "bold",
+    textAlign: 'center',
     marginBottom: 24,
+    fontWeight: '600',
   },
   input: {
-    width: "100%",
     marginBottom: 16,
-  },
-  message: {
-    marginBottom: 16,
-    textAlign: 'center',
+    backgroundColor: '#FFFFFF',
   },
   button: {
-    width: "100%",
     marginTop: 8,
+    borderRadius: 8,
   },
+  error: {
+    color: '#D32F2F',
+    marginBottom: 16,
+    textAlign: 'center',
+  }
 });
